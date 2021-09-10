@@ -29,7 +29,8 @@ AutoFixMemLeaks::Result AutoFixMemLeaks::runOnModule(Module &M) {
     for(auto &Func : M) {
         for(auto &BB : Func) {
             for(auto &I : BB) {
-                
+                CallInst *callInst = nullptr;
+                MemInst *memInst = nullptr;
             }
         }
     }

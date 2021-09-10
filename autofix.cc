@@ -18,12 +18,26 @@
 #include <llvm/Support/Compiler.h>
 #include <llvm/Support/raw_ostream.h>
 
+#include <string>
+
 using namespace llvm;
 
 
+AutoFixMemLeaks::Result AutoFixMemLeaks::runOnModule(Module &M) {
+    llvm::string Res ;
 
-PreservedAnalyses AutoFixMemLeaks::run(llvm::Module M, llvm::ModuleAnalysisManager & ){
+    for(auto &Func : M) {
+        for(auto &BB : Func) {
+            for(auto &I : BB) {
+                
+            }
+        }
+    }
+}
+
+PreservedAnalyses AutoFixMemLeaks::run(llvm::Module M, llvm::ModuleAnalysisManager &MAM){
     /// Initialize run 
+    return PreservedAnalyses::all();
 }
 
 //-----------------------------------------------------------------------------

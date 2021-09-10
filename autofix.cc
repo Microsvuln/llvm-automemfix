@@ -13,6 +13,9 @@ using namespace llvm;
 
 
 
+PreservedAnalyses AutoFixMemLeaks::run(llvm::Module M, llvm::ModuleAnalysisManager & ){
+    /// Initialize run 
+}
 
 //-----------------------------------------------------------------------------
 // New PM Registration
@@ -24,7 +27,7 @@ llvm::PassPluginLibraryInfo getInjectFuncCallPluginInfo() {
                 [](StringRef Name, ModulePassManager &MPM,
                    ArrayRef<PassBuilder::PipelineElement>) {
                   if (Name == "legacy-autofix-mem-leaks") {
-                    MPM.addPass(InjectFuncCall());
+                    MPM.addPass(autofixmemleaks());
                     return true;
                   }
                   return false;

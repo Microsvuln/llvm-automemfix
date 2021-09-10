@@ -11,12 +11,12 @@ using namespace llvm;
 // New PM Registration
 //-----------------------------------------------------------------------------
 llvm::PassPluginLibraryInfo getInjectFuncCallPluginInfo() {
-  return {LLVM_PLUGIN_API_VERSION, "inject-func-call", LLVM_VERSION_STRING,
+  return {LLVM_PLUGIN_API_VERSION, "legacy-autofix-mem-leaks", LLVM_VERSION_STRING,
           [](PassBuilder &PB) {
             PB.registerPipelineParsingCallback(
                 [](StringRef Name, ModulePassManager &MPM,
                    ArrayRef<PassBuilder::PipelineElement>) {
-                  if (Name == "inject-func-call") {
+                  if (Name == "legacy-autofix-mem-leaks") {
                     MPM.addPass(InjectFuncCall());
                     return true;
                   }

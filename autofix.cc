@@ -37,7 +37,7 @@ namespace {
                         }
                     
                     ///// Value *str1Pointer = call_inst->getArgOperand(0);
-                    ////// std::string Str1, Str2;
+                    ///// std::string Str1, Str2;
                     ///// StringRef TmpStr;
                     ///// getConstantStringInfo(str1Pointer, TmpStr);
                     errs() << call_inst->getArgOperand(0);

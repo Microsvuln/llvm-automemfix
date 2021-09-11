@@ -26,11 +26,10 @@ using namespace llvm;
 AutoFixMemLeaks::Result AutoFixMemLeaks::runOnModule(Module &M) {
     llvm::string Res ;
 
-    for(auto &Func : M) {
-        for(auto &BB : Func) {
-            for(auto &I : BB) {
-                CallInst *callInst = nullptr;
-                MemInst *memInst = nullptr;
+    for(Module::iterator fi = M.begin(); fi != M.end() ; ++fi){
+        for(Function::iterator bi = fi->begin() ; bi != bi->end() ; ++bi){
+            for(BasicBlock::iterator it = bi->begin() ; fi->end() ; ++fi){
+                Instruction *I = &*it;
             }
         }
     }

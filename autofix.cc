@@ -11,34 +11,36 @@ namespace {
   struct SkeletonPass : public ModulePass {
     static char ID;
     SkeletonPass() : ModulePass(ID) {}
-
+    std::map<std::string, std::tuple<size_t, int> > mem_addrs;
     virtual bool runOnModule(Module &M) {
-      ///// errs() << "I saw a function called " << F.getName() << "!\n";
-      ///// errs() << "This is the function called : "<< F << "\n"; 
-      //
-     errs() << "\nThis is my pass !";
-        
-    for (auto &F : M) {
-      for(auto& B:F){
-        for(auto& I:B){
-            CallInst *callInst = nullptr;
-            if(callInst = dyn_cast<CallInst>(&I)){
-                bool isMalloc = true;
-                Function *Callee = callInst->getCalledFunction();
-                if(!Callee) continue;
-                if(callInst->getCallingConv() != llvm::CallingConv::C) continue;
-                std::string FuncName = Callee->getName().str() ;
-                isMalloc &= (!FuncName.compare("malloc"));
-                if(isMalloc == true){
-                    errs() << "\nAt least one call to malloc() has been detected\n";
-                }
+     
+    errs() << "\nThis is my pass !\n";
+    for (Function &F: M) {
+    for (BasicBlock &B: F) {
+        for (Instruction &I: B) {
+            if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
+                errs() << "\nAt least one malloc";
+            }
+            //// CallInst *callInst = nullptr;
+           /////if(callInst = dyn_cast<CallInst>(&I)){
+                /////bool isMalloc = true;
+                //// Function *Callee = callInst->getCalledFunction();
+                ///// if(!Callee) continue;
+                //// if(callInst->getCallingConv() != llvm::CallingConv::C) continue;
+                //// std::string FuncName = Callee->getName().str() ;
+                //// isMalloc &= (!FuncName.compare("malloc"));
+                
+                ///// if(isMalloc == true){
+                /////    errs() << "\nAt least one call to malloc() has been detected\n";
+                
                 
             }
 
 
         }
       }  
-  }
+  
+    
   
       return false;
     }
@@ -46,7 +48,7 @@ namespace {
 }
 
 char SkeletonPass::ID = 0;
-static RegisterPass<SkeletonPass> X("skeleton", "Skeleton my pass",
+static RegisterPass<SkeletonPass> X("skeleton", "leamem check pass",
                              false /* Only looks at CFG */,
                              false /* Analysis Pass */);
 
@@ -59,7 +61,5 @@ static void registerSkeletonPass(const PassManagerBuilder &,
 static RegisterStandardPasses
   RegisterMyPass(PassManagerBuilder::EP_EarlyAsPossible,
                  registerSkeletonPass);
-
-
 //// How to run !?
 //// opt -load ./build/skeleton/libSkeletonPass.so --skeleton < sm.bc > /dev/null

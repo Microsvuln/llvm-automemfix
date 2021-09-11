@@ -22,8 +22,12 @@
 
 using namespace llvm;
 
+namespace {
+  struct AutoFixMemLeaksPass : public FunctionPass {
+    static char ID;
+    AutoFixMemLeaksPass() : ModulePass(ID) {}
 
-AutoFixMemLeaks::Result AutoFixMemLeaks::runOnModule(Module &M) {
+    virtual bool runOnModule(Module &M) {
     llvm::string Res ;
     CallInst *callInst = nullptr;
 
@@ -45,41 +49,17 @@ AutoFixMemLeaks::Result AutoFixMemLeaks::runOnModule(Module &M) {
     }
     return true;
 }
+char SkeletonPass::ID = 0;
+static RegisterPass<SkeletonPass> X("autofixmemleakspass", "Fix mem leaks in a module",
+                             false /* Only looks at CFG */,
+                             false /* Analysis Pass */);
 
-PreservedAnalyses AutoFixMemLeaks::run(llvm::Module M, llvm::ModuleAnalysisManager &MAM){
-    /// Initialize run 
-    return PreservedAnalyses::all();
+// Automatically enable the pass.
+// http://adriansampson.net/blog/clangpass.html
+static void registerSkeletonPass(const PassManagerBuilder &,
+                         legacy::PassManagerBase &PM) {
+  PM.add(new SkeletonPass());
 }
-
-//-----------------------------------------------------------------------------
-// New PM Registration
-//-----------------------------------------------------------------------------
-llvm::PassPluginLibraryInfo getInjectFuncCallPluginInfo() {
-  return {LLVM_PLUGIN_API_VERSION, "legacy-autofix-mem-leaks", LLVM_VERSION_STRING,
-          [](PassBuilder &PB) {
-            PB.registerPipelineParsingCallback(
-                [](StringRef Name, ModulePassManager &MPM,
-                   ArrayRef<PassBuilder::PipelineElement>) {
-                  if (Name == "legacy-autofix-mem-leaks") {
-                    MPM.addPass(autofixmemleaks());
-                    return true;
-                  }
-                  return false;
-                });
-          }};
-}
-
-extern "C" LLVM_ATTRIBUTE_WEAK ::llvm::PassPluginLibraryInfo
-llvmGetPassPluginInfo() {
-  return getInjectFuncCallPluginInfo();
-}
-
-//-----------------------------------------------------------------------------
-// Legacy PM Registration
-//-----------------------------------------------------------------------------
-char LegacyInjectFuncCall::ID = 0;
-
-// Register the pass - required for (among others) opt
-static RegisterPass<LegacyInjectFuncCall>
-    X(/*PassArg=*/"legacy-autofix-mem-leaks", /*Name=*/"autofixmemleaks",
-      /*CFGOnly=*/false, /*is_analysis=*/false);
+static RegisterStandardPasses
+  RegisterMyPass(PassManagerBuilder::EP_EarlyAsPossible,
+                 registerSkeletonPass);

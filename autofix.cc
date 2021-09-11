@@ -26,7 +26,7 @@ namespace {
                 bool isMalloc = true;
                 Function *Callee = callInst->getCalledFunction();
                 if(!Callee) continue;
-                if(callInst->getCallingCov() != llvm::CallingCov::C) continue;
+                if(callInst->getCallingConv() != llvm::CallingConv::C) continue;
                 std::string FuncName = Callee->getName().str() ;
                 
             }

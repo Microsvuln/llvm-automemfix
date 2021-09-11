@@ -28,6 +28,10 @@ namespace {
                 if(!Callee) continue;
                 if(callInst->getCallingConv() != llvm::CallingConv::C) continue;
                 std::string FuncName = Callee->getName().str() ;
+                isMalloc &= (!FuncName.compare("malloc"));
+                if(isMalloc == true){
+                    errs() << "\nAt least one call to malloc() has been detected\n";
+                }
                 
             }
 
@@ -55,3 +59,7 @@ static void registerSkeletonPass(const PassManagerBuilder &,
 static RegisterStandardPasses
   RegisterMyPass(PassManagerBuilder::EP_EarlyAsPossible,
                  registerSkeletonPass);
+
+
+//// How to run !?
+//// opt -load ./build/skeleton/libSkeletonPass.so --skeleton < sm.bc > /dev/null

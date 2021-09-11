@@ -17,32 +17,17 @@ namespace {
       ///// errs() << "This is the function called : "<< F << "\n"; 
       //
      errs() << "\nThis is my pass !";
-            /*
-  for (auto &F : M) {
+        
+    for (auto &F : M) {
       for(auto& B:F){
-              ///// errs() << "Basic block is : " << B << "\n";      
         for(auto& I:B){
-                ///// errs() << "Instrunction is : " << I << "\n";
-                if(auto* op = dyn_cast<BinaryOperator>(&I)){
-                        ///// errs() << *op << "\n";
-                        IRBuilder<> builder(op);
-                        Value *lhs = op->getOperand(0);
-                        Value *rhs = op->getOperand(1);
-                        Value *mul = builder.CreateMul(lhs, rhs);
-
-                        for(auto&  U : op->uses()){
-                                User* user = U.getUser();
-                                user->setOperand(U.getOperandNo(), mul);
-                                 
-                        }
-                        return true;
-                }
+                
 
 
         }
       }  
   }
-  */
+  
       return false;
     }
   };

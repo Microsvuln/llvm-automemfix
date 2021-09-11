@@ -19,21 +19,19 @@ namespace {
     for (BasicBlock &B: F) {
         for (Instruction &I: B) {
             if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
-
-                /////errs() << "\nAt least one malloc";
-            
-            //// CallInst *callInst = nullptr;
-           /////if(callInst = dyn_cast<CallInst>(&I)){
                 bool isMalloc = true;
                 Function *Callee = call_inst->getCalledFunction();
                 if(!Callee) continue;
                         if(call_inst->getCallingConv() != llvm::CallingConv::C) continue;
                         std::string FuncName = Callee->getName().str() ;
                         isMalloc &= (!FuncName.compare("malloc"));       
-                        if(isMalloc == true)
-                                errs() << "\nWe have malloc() calls :D";
-                        else
-                                errs() << "\nWe have no malloc calls()";
+                        if(isMalloc == true){
+                            errs() << "\nWe have malloc() calls :D";
+
+                        }
+                        else{
+                            errs() << "\nWe have no malloc calls()";
+                        }
             }
 
 

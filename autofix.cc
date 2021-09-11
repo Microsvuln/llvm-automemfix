@@ -5,6 +5,7 @@
 #include "llvm/Transforms/IPO/PassManagerBuilder.h"
 #include "llvm/IR/InstrTypes.h"
 #include "llvm/IR/IRBuilder.h"
+#include <llvm/Analysis/ValueTracking.h>
 using namespace llvm;
 
 namespace {
@@ -36,6 +37,7 @@ namespace {
                     std::string Str1, Str2;
                     StringRef TmpStr;
                     getConstantStringInfo(str1Pointer, TmpStr);
+                    errs() << call_inst->getArgOperand(0);
             }
 
 

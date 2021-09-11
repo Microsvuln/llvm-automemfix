@@ -49,17 +49,17 @@ namespace {
     }
     return true;
 }
-char SkeletonPass::ID = 0;
-static RegisterPass<SkeletonPass> X("autofixmemleakspass", "Fix mem leaks in a module",
+char AutoFixMemLeaksPass::ID = 0;
+static RegisterPass<AutoFixMemLeaksPass> X("autofixmemleakspass", "Fix mem leaks in a module",
                              false /* Only looks at CFG */,
                              false /* Analysis Pass */);
 
 // Automatically enable the pass.
 // http://adriansampson.net/blog/clangpass.html
-static void registerSkeletonPass(const PassManagerBuilder &,
+static void registerAutoFixMemLeaksPass(const PassManagerBuilder &,
                          legacy::PassManagerBase &PM) {
-  PM.add(new SkeletonPass());
+  PM.add(new AutoFixMemLeaksPass());
 }
 static RegisterStandardPasses
   RegisterMyPass(PassManagerBuilder::EP_EarlyAsPossible,
-                 registerSkeletonPass);
+                 registerAutoFixMemLeaksPass);

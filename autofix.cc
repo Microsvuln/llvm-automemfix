@@ -21,7 +21,15 @@ namespace {
     for (auto &F : M) {
       for(auto& B:F){
         for(auto& I:B){
+            CallInst *callInst = nullptr;
+            if(callInst = dyn_cast<CallInst>(&I)){
+                bool isMalloc = true;
+                Function *Callee = callInst->getCalledFunction();
+                if(!Callee) continue;
+                if(callInst->getCallingCov() != llvm::CallingCov::C) continue;
+                std::string FuncName = Callee->getName().str() ;
                 
+            }
 
 
         }

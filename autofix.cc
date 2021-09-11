@@ -1,64 +1,64 @@
-#include <llvm/IR/IRBuilder.h>
-#include <llvm/Passes/PassPlugin.h>
-#include <llvm/ADT/ArrayRef.h>
-#include <llvm/ADT/StringRef.h>
-#include <llvm/IR/Function.h>
-#include <llvm/IR/InstIterator.h>
-#include <llvm/IR/Instruction.h>
-#include <llvm/IR/Instructions.h>
-#include <llvm/Passes/PassBuilder.h>
-#include <llvm/ADT/Statistic.h>
-#include <llvm/IR/DerivedTypes.h>
-#include <llvm/IR/Module.h>
-#include <llvm/IR/Type.h>
-#include <llvm/Pass.h>
-#include <llvm/Support/raw_ostream.h>
-#include <llvm/Support/Casting.h>
-#include <llvm/Support/Compiler.h>
-#include <llvm/Support/raw_ostream.h>
-
-#include <string>
-
+#include "llvm/Pass.h"
+#include "llvm/IR/Function.h"
+#include "llvm/Support/raw_ostream.h"
+#include "llvm/IR/LegacyPassManager.h"
+#include "llvm/Transforms/IPO/PassManagerBuilder.h"
+#include "llvm/IR/InstrTypes.h"
+#include "llvm/IR/IRBuilder.h"
 using namespace llvm;
 
 namespace {
-  struct AutoFixMemLeaksPass : public FunctionPass {
+  struct SkeletonPass : public ModulePass {
     static char ID;
-    AutoFixMemLeaksPass() : ModulePass(ID) {}
+    SkeletonPass() : ModulePass(ID) {}
 
     virtual bool runOnModule(Module &M) {
-    llvm::string Res ;
-    CallInst *callInst = nullptr;
+      ///// errs() << "I saw a function called " << F.getName() << "!\n";
+      ///// errs() << "This is the function called : "<< F << "\n"; 
+      //
+     errs() << "\nThis is my pass !";
+            /*
+  for (auto &F : M) {
+      for(auto& B:F){
+              ///// errs() << "Basic block is : " << B << "\n";      
+        for(auto& I:B){
+                ///// errs() << "Instrunction is : " << I << "\n";
+                if(auto* op = dyn_cast<BinaryOperator>(&I)){
+                        ///// errs() << *op << "\n";
+                        IRBuilder<> builder(op);
+                        Value *lhs = op->getOperand(0);
+                        Value *rhs = op->getOperand(1);
+                        Value *mul = builder.CreateMul(lhs, rhs);
 
-    for(Module::iterator fi = M.begin(); fi != M.end() ; ++fi){
-        for(Function::iterator bi = fi->begin() ; bi != bi->end() ; ++bi){
-            for(BasicBlock::iterator it = bi->begin() ; fi->end() ; ++fi){
-
-                Instruction *I = &*it;
-                if((callInst = dyn_cast<CallInst>(&I))){
-                    bool isMalloc = true;
-                    Function *Callee = callInst->getCalledFunction();
-                    if(!Callee) continue ;
-                    if(!callInst->getCallingConv() != llvm::CallingCov::C) continue;
-                    std::string FuncName = Callee->getName.str();
-                    isMalloc &= (!FuncName.comapre("malloc"));
+                        for(auto&  U : op->uses()){
+                                User* user = U.getUser();
+                                user->setOperand(U.getOperandNo(), mul);
+                                 
+                        }
+                        return true;
                 }
-            } 
+
+
         }
+      }  
+  }
+  */
+      return false;
     }
-    return true;
+  };
 }
-char AutoFixMemLeaksPass::ID = 0;
-static RegisterPass<AutoFixMemLeaksPass> X("autofixmemleakspass", "Fix mem leaks in a module",
+
+char SkeletonPass::ID = 0;
+static RegisterPass<SkeletonPass> X("skeleton", "Skeleton my pass",
                              false /* Only looks at CFG */,
                              false /* Analysis Pass */);
 
 // Automatically enable the pass.
 // http://adriansampson.net/blog/clangpass.html
-static void registerAutoFixMemLeaksPass(const PassManagerBuilder &,
+static void registerSkeletonPass(const PassManagerBuilder &,
                          legacy::PassManagerBase &PM) {
-  PM.add(new AutoFixMemLeaksPass());
+  PM.add(new SkeletonPass());
 }
 static RegisterStandardPasses
   RegisterMyPass(PassManagerBuilder::EP_EarlyAsPossible,
-                 registerAutoFixMemLeaksPass);
+                 registerSkeletonPass);

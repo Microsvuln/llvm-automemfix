@@ -25,11 +25,21 @@ using namespace llvm;
 
 AutoFixMemLeaks::Result AutoFixMemLeaks::runOnModule(Module &M) {
     llvm::string Res ;
+    CallInst *callInst = nullptr;
 
     for(Module::iterator fi = M.begin(); fi != M.end() ; ++fi){
         for(Function::iterator bi = fi->begin() ; bi != bi->end() ; ++bi){
             for(BasicBlock::iterator it = bi->begin() ; fi->end() ; ++fi){
+
                 Instruction *I = &*it;
+                if((callInst = dyn_cast<CallInst>(&I))){
+                    bool isMalloc = true;
+                    Function *Callee = callInst->getCalledFunction();
+                    if(!Callee) continue ;
+                    if(!callInst->getCallingConv() != llvm::CallingCov::C) continue;
+                    std::string FuncName = Callee->getName.str();
+                    isMalloc &= (!FuncName.comapre("malloc"));
+                }
             } 
         }
     }

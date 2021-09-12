@@ -72,3 +72,4 @@ static RegisterStandardPasses
                  registerSkeletonPass);
 //// How to run !?
 //// opt -load ./build/skeleton/libSkeletonPass.so --skeleton < sm.bc > /dev/null
+//// I need to commit some new stuff in my code

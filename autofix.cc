@@ -8,13 +8,16 @@
 #include <llvm/Analysis/ValueTracking.h>
 using namespace llvm;
 
+int mallocCount = 0;
+int freeCount   = 0;
+
 namespace {
   struct SkeletonPass : public ModulePass {
     static char ID;
     SkeletonPass() : ModulePass(ID) {}
     std::map<std::string, std::tuple<size_t, int> > mem_addrs;
     virtual bool runOnModule(Module &M) {
-     
+    
     errs() << "\nThis is my pass !\n";
     for (Function &F: M) {
     for (BasicBlock &B: F) {
@@ -30,14 +33,16 @@ namespace {
                         isFree   &= (!FuncName.compare("free"));
                         if(isMalloc == true){
                             errs() << "\nWe have malloc() calls\n";
+                            mallocCount++;
                         }
                         if(isFree == true)
                         {
                                 errs() << "\nWe have free() calls\n";
+                                freeCount++;
                         }
                     
                     ///// Value *str1Pointer = call_inst->getArgOperand(0);
-                    ///// std::string Str1, Str2;
+                    ////// std::string Str1, Str2;
                     ///// StringRef TmpStr;
                     ///// getConstantStringInfo(str1Pointer, TmpStr);
                     errs() << call_inst->getArgOperand(0);
@@ -48,8 +53,10 @@ namespace {
         }
       } 
     }
-  
-    
+     errs() << "Malloc counts : \n";
+        errs() << mallocCount;
+    errs() << "\nFree Counts :\n";
+        errs() << freeCount;    
   
       return false;
     }

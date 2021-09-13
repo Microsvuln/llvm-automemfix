@@ -2,6 +2,7 @@
 #include <llvm/IR/Function.h>
 #include <llvm/Support/raw_ostream.h>
 #include <llvm/IR/LegacyPassManager.h>
+#include <llvm/IR/DebugLoc.h>
 #include <llvm/Transforms/IPO/PassManagerBuilder.h>
 #include <llvm/IR/InstrTypes.h>
 #include <llvm/IR/IRBuilder.h>
@@ -22,9 +23,12 @@ namespace {
     struct Metadata{
         int64_t line;
         int64_t col;
-    }
+    };
 
     virtual bool runOnModule(Module &M) {
+        
+        auto &context = M.getContext();
+        auto Int64Ty = Type::getInt64Ty(context);
 
 
     errs() << "\nThis is my pass !\n";
@@ -52,12 +56,15 @@ namespace {
                         */
                         isMalloc &= (!FuncName.compare("malloc"));
                         if(isMalloc == true){
-                            struct Metadata instrMetadata = getLineAndCol(I);
+                            //// struct Metadata instrMetadata = getLineAndCol(I);
                             std::vector<Value*> args;
                             args.push_back(address);
                             args.push_back(size);
-                            args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
+                            ///// args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
                             errs() << "\nWe have malloc() calls\n";
+                            errs() << args[0];
+                            errs() << args[1];
+                            ///// errs() << args->size;
                             mallocCount++;
                         }
                         isFree   &= (!FuncName.compare("free"));
@@ -122,5 +129,4 @@ static RegisterStandardPasses
                  registerSkeletonPass);
 //// How to run !?
 //// opt -load ./build/skeleton/libSkeletonPass.so --skeleton < sm.bc > /dev/null
-
 

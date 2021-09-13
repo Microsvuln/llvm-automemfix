@@ -63,7 +63,11 @@ namespace {
                             ///// args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
                             errs() << "\nWe have malloc() calls\n";
                             errs() << args[0];
+                            errs() << "\n";
                             errs() << args[1];
+                            errs() << "\n";
+                            errs() << "size of allocation : " << *(call_inst->getOperand(0)) <<"\n";
+
                             ///// errs() << args->size;
                             mallocCount++;
                         }
@@ -129,4 +133,3 @@ static RegisterStandardPasses
                  registerSkeletonPass);
 //// How to run !?
 //// opt -load ./build/skeleton/libSkeletonPass.so --skeleton < sm.bc > /dev/null
-

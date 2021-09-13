@@ -106,3 +106,4 @@ static RegisterStandardPasses
 //// How to run !?
 //// opt -load ./build/skeleton/libSkeletonPass.so --skeleton < sm.bc > /dev/null
 
+

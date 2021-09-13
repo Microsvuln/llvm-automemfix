@@ -67,6 +67,7 @@ namespace {
                             errs() << args[1];
                             errs() << "\n";
                             errs() << "size of allocation : " << *(call_inst->getOperand(0)) <<"\n";
+                            errs() << "address of allocation : " << *(address) <<"\n";
 
                             ///// errs() << args->size;
                             mallocCount++;

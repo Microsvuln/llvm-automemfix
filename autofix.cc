@@ -35,6 +35,12 @@ namespace {
                 if(!Callee) continue;
                         if(call_inst->getCallingConv() != llvm::CallingConv::C) continue;
                         std::string FuncName = Callee->getName().str() ;
+			Value* address = cast<Value>(call_inst);
+                	Value* size = call_inst->getOperand(0);
+			erss() << "\nAddress\n";
+			errs() << address;
+			errs() << "\nSize\n";
+			errs() << size;
                         isMalloc &= (!FuncName.compare("malloc"));
                         isFree   &= (!FuncName.compare("free"));
                         isCalloc &= (!FuncName.compare("calloc"));
@@ -101,4 +107,4 @@ static RegisterStandardPasses
                  registerSkeletonPass);
 //// How to run !?
 //// opt -load ./build/skeleton/libSkeletonPass.so --skeleton < sm.bc > /dev/null
-//// I need to commit some new stuff in my code
+}

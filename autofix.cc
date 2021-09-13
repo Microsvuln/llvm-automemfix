@@ -18,8 +18,15 @@ namespace {
     static char ID;
     SkeletonPass() : ModulePass(ID) {}
     std::map<std::string, std::tuple<size_t, int> > mem_addrs;
+
+    struct Metadata{
+        int64_t line;
+        int64_t col;
+    }
+
     virtual bool runOnModule(Module &M) {
-    
+
+
     errs() << "\nThis is my pass !\n";
     for (Function &F: M) {
     for (BasicBlock &B: F) {
@@ -37,10 +44,12 @@ namespace {
                         std::string FuncName = Callee->getName().str() ;
                         Value* address = cast<Value>(call_inst);
                         Value* size = call_inst->getOperand(0);
+                        /*
                         errs() << "\nAddress\n";
                         errs() << address;
                         errs() << "\nSize\n";
                         errs() << size;
+                        */
                         isMalloc &= (!FuncName.compare("malloc"));
                         if(isMalloc == true){
                             struct Metadata instrMetadata = getLineAndCol(I);
@@ -76,12 +85,14 @@ namespace {
                     ////// std::string Str1, Str2;
                     ///// StringRef TmpStr;
                     ///// getConstantStringInfo(str1Pointer, TmpStr);
-                    errs() << call_inst->getArgOperand(0);
-                    errs() << "\n";
+                    ////// errs() << call_inst->getArgOperand(0);
+                    ///// errs() << "\n";
             }
         }        
       } 
     }
+
+    /*
      errs() << "Malloc counts : \n";
         errs() << mallocCount;
     errs() << "\nFree Counts :\n";
@@ -89,6 +100,7 @@ namespace {
         if(mallocCount != freeCount){
             errs() << "\n I can say, you have a Use After Free Vulnerability or a Memory leak in parts of your code";
         }
+    */
       return false;
     }
   };

@@ -10,7 +10,7 @@ using namespace llvm;
 
 int mallocCount = 0;
 int freeCount   = 0;
-
+int callocCount      = 0;
 namespace {
   struct SkeletonPass : public ModulePass {
     static char ID;
@@ -31,15 +31,19 @@ namespace {
                         std::string FuncName = Callee->getName().str() ;
                         isMalloc &= (!FuncName.compare("malloc"));
                         isFree   &= (!FuncName.compare("free"));
-                        if(isMalloc == true){
+                        isCalloc &= (!FuncName.compare("calloc"));
+			if(isMalloc == true){
                             errs() << "\nWe have malloc() calls\n";
                             mallocCount++;
                         }
-                        if(isFree == true)
-                        {
+                        if(isFree == true){
                                 errs() << "\nWe have free() calls\n";
                                 freeCount++;
                         }
+			if(isCalloc == true) {
+				errs() << "\nWe have calloc() calls \n" ;
+				callocCount++ ;		
+			}
                     
                     ///// Value *str1Pointer = call_inst->getArgOperand(0);
                     ////// std::string Str1, Str2;

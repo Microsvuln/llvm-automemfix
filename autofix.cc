@@ -27,28 +27,28 @@ namespace {
             if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
                 bool isMalloc = true;
                 bool isFree = true;
-		bool isCalloc = true;
-		bool isAlloca = true;
-		bool isLoad = true;
-		bool isStore = true; 
+                bool isCalloc = true;
+                bool isAlloca = true;
+                bool isLoad = true;
+                bool isStore = true; 
                 Function *Callee = call_inst->getCalledFunction();
                 if(!Callee) continue;
                         if(call_inst->getCallingConv() != llvm::CallingConv::C) continue;
                         std::string FuncName = Callee->getName().str() ;
-			Value* address = cast<Value>(call_inst);
-                	Value* size = call_inst->getOperand(0);
-			erss() << "\nAddress\n";
-			errs() << address;
-			errs() << "\nSize\n";
-			errs() << size;
+                        Value* address = cast<Value>(call_inst);
+                        Value* size = call_inst->getOperand(0);
+                        errs() << "\nAddress\n";
+                        errs() << address;
+                        errs() << "\nSize\n";
+                        errs() << size;
                         isMalloc &= (!FuncName.compare("malloc"));
                         isFree   &= (!FuncName.compare("free"));
                         isCalloc &= (!FuncName.compare("calloc"));
-			isAlloca &= (!FuncName.compare("alloca"));
-			isLoad   &= (!FuncName.compare("load"));
-		        isStore  &= (!FuncName.compare("store"));
-				
-			if(isMalloc == true){
+                        isAlloca &= (!FuncName.compare("alloca"));
+                        isLoad   &= (!FuncName.compare("load"));
+                        isStore  &= (!FuncName.compare("store"));
+
+                        if(isMalloc == true){
                             errs() << "\nWe have malloc() calls\n";
                             mallocCount++;
                         }
@@ -56,16 +56,16 @@ namespace {
                                 errs() << "\nWe have free() calls\n";
                                 freeCount++;
                         }
-			if(isCalloc == true) {
-				errs() << "\nWe have calloc() calls \n" ;
-				callocCount++ ;		
-			}
-			if(isLoad == true){
-				erss() << "\nWe have load() calls";
-			}			
-			if(isStore == true){
-				errs() << "\nWe have store() calls ";
-			}
+                        if(isCalloc == true) {
+                                errs() << "\nWe have calloc() calls \n" ;
+                                callocCount++ ;
+                        }
+                        if(isLoad == true){
+                                errs() << "\nWe have load() calls";
+                        }
+                        if(isStore == true){
+                                errs() << "\nWe have store() calls ";
+                        }
                     
                     ///// Value *str1Pointer = call_inst->getArgOperand(0);
                     ////// std::string Str1, Str2;
@@ -74,9 +74,7 @@ namespace {
                     errs() << call_inst->getArgOperand(0);
                     errs() << "\n";
             }
-
-
-        }
+        }        
       } 
     }
      errs() << "Malloc counts : \n";
@@ -107,4 +105,4 @@ static RegisterStandardPasses
                  registerSkeletonPass);
 //// How to run !?
 //// opt -load ./build/skeleton/libSkeletonPass.so --skeleton < sm.bc > /dev/null
-}
+

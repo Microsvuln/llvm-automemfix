@@ -62,12 +62,12 @@ namespace {
                             args.push_back(size);
                             ///// args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
                             errs() << "\nWe have malloc() calls\n";
-                            errs() << args[0];
+                            errs() << *args[0];
                             errs() << "\n";
                             errs() << args[1];
                             errs() << "\n";
                             errs() << "size of allocation : " << *(call_inst->getOperand(0)) <<"\n";
-                            errs() << "address of allocation : " << *(address) <<"\n";
+                            errs() << "address of allocation : " << (address) <<"\n";
 
                             ///// errs() << args->size;
                             mallocCount++;

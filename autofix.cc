@@ -11,6 +11,8 @@ using namespace llvm;
 int mallocCount = 0;
 int freeCount   = 0;
 int callocCount      = 0;
+int loadCount = 0;
+int storeCount = 0;
 namespace {
   struct SkeletonPass : public ModulePass {
     static char ID;
@@ -25,6 +27,10 @@ namespace {
             if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
                 bool isMalloc = true;
                 bool isFree = true;
+		bool isCalloc = true;
+		bool isAlloca = true;
+		bool isLoad = true;
+		bool isStore = true; 
                 Function *Callee = call_inst->getCalledFunction();
                 if(!Callee) continue;
                         if(call_inst->getCallingConv() != llvm::CallingConv::C) continue;
@@ -33,6 +39,9 @@ namespace {
                         isFree   &= (!FuncName.compare("free"));
                         isCalloc &= (!FuncName.compare("calloc"));
 			isAlloca &= (!FuncName.compare("alloca"));
+			isLoad   &= (!FuncName.compare("load"));
+		        isStore  &= (!FuncName.compare("store"));
+				
 			if(isMalloc == true){
                             errs() << "\nWe have malloc() calls\n";
                             mallocCount++;
@@ -45,7 +54,12 @@ namespace {
 				errs() << "\nWe have calloc() calls \n" ;
 				callocCount++ ;		
 			}
-
+			if(isLoad == true){
+				erss() << "\nWe have load() calls";
+			}			
+			if(isStore == true){
+				errs() << "\nWe have store() calls ";
+			}
                     
                     ///// Value *str1Pointer = call_inst->getArgOperand(0);
                     ////// std::string Str1, Str2;

@@ -42,16 +42,21 @@ namespace {
                         errs() << "\nSize\n";
                         errs() << size;
                         isMalloc &= (!FuncName.compare("malloc"));
+                        if(isMalloc == true){
+                            struct Metadata instrMetadata = getLineAndCol(I);
+                            std::vector<Value*> args;
+                            args.push_back(address);
+                            args.push_back(size);
+                            args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
+                            errs() << "\nWe have malloc() calls\n";
+                            mallocCount++;
+                        }
                         isFree   &= (!FuncName.compare("free"));
                         isCalloc &= (!FuncName.compare("calloc"));
                         isAlloca &= (!FuncName.compare("alloca"));
                         isLoad   &= (!FuncName.compare("load"));
                         isStore  &= (!FuncName.compare("store"));
 
-                        if(isMalloc == true){
-                            errs() << "\nWe have malloc() calls\n";
-                            mallocCount++;
-                        }
                         if(isFree == true){
                                 errs() << "\nWe have free() calls\n";
                                 freeCount++;

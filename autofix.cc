@@ -32,6 +32,7 @@ namespace {
                         isMalloc &= (!FuncName.compare("malloc"));
                         isFree   &= (!FuncName.compare("free"));
                         isCalloc &= (!FuncName.compare("calloc"));
+			isAlloca &= (!FuncName.compare("alloca"));
 			if(isMalloc == true){
                             errs() << "\nWe have malloc() calls\n";
                             mallocCount++;
@@ -44,6 +45,7 @@ namespace {
 				errs() << "\nWe have calloc() calls \n" ;
 				callocCount++ ;		
 			}
+
                     
                     ///// Value *str1Pointer = call_inst->getArgOperand(0);
                     ////// std::string Str1, Str2;

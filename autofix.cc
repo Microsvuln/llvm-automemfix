@@ -36,7 +36,7 @@ namespace {
     for (BasicBlock &B: F) {
         for (Instruction &I: B) {
             if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
-                bool isMalloc = true;
+                //// bool isMalloc = true;
                 bool isFree = true;
                 bool isCalloc = true;
                 bool isAlloca = true;
@@ -72,13 +72,14 @@ namespace {
                             ///// errs() << args->size;
                             mallocCount++;
                         }
+                        /*
                         isFree   &= (!FuncName.compare("free"));
                         if(isFree == true){
                             std::vector<Value*> args;
                             errs() << "address of Free() : "  << (address) <<"\n";
                             freeCount++;
                         }
-                        /*
+                        
                         isCalloc &= (!FuncName.compare("calloc"));
                         isAlloca &= (!FuncName.compare("alloca"));
                         isLoad   &= (!FuncName.compare("load"));

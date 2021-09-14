@@ -74,7 +74,7 @@ namespace {
                         isFree   &= (!FuncName.compare("free"));
                         if(isFree == true){
                             std::vector<Value*> args;
-                            errs() << "address of Free() : " << << (address) <<"\n";
+                            errs() << "address of Free() : "  << (address) <<"\n";
                             freeCount++;
                         }
                         /*

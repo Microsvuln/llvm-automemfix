@@ -61,22 +61,28 @@ namespace {
                             args.push_back(address);
                             args.push_back(size);
                             ///// args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
-                            errs() << "\nWe have malloc() calls\n";
-                            errs() << *args[0];
-                            errs() << "\n";
-                            errs() << args[1];
+                            ///// errs() << "\nWe have malloc() calls\n";
+                            ///// errs() << *args[0];
+                            ///// errs() << "\n";
+                            ///// errs() << args[1];
                             errs() << "\n";
                             errs() << "size of allocation : " << *(call_inst->getOperand(0)) <<"\n";
                             errs() << "address of allocation : " << (address) <<"\n";
-
                             ///// errs() << args->size;
                             mallocCount++;
                         }
                         isFree   &= (!FuncName.compare("free"));
+                        if(isFree == true){
+                            std::vector<Value*> args;
+                            errs() << "address of Free() : " << *(call_inst->getOperand(0)) <<"\n";
+                            freeCount++;
+                        }
+                        /*
                         isCalloc &= (!FuncName.compare("calloc"));
                         isAlloca &= (!FuncName.compare("alloca"));
                         isLoad   &= (!FuncName.compare("load"));
                         isStore  &= (!FuncName.compare("store"));
+                        */
 
                         if(isFree == true){
                                 errs() << "\nWe have free() calls\n";

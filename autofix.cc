@@ -74,7 +74,7 @@ namespace {
                         isFree   &= (!FuncName.compare("free"));
                         if(isFree == true){
                             std::vector<Value*> args;
-                            errs() << "address of Free() : " << *(call_inst->getOperand(0)) <<"\n";
+                            errs() << "address of Free() : " << << (address) <<"\n";
                             freeCount++;
                         }
                         /*
@@ -83,7 +83,7 @@ namespace {
                         isLoad   &= (!FuncName.compare("load"));
                         isStore  &= (!FuncName.compare("store"));
                         */
-
+                        /*
                         if(isFree == true){
                                 errs() << "\nWe have free() calls\n";
                                 freeCount++;
@@ -92,12 +92,14 @@ namespace {
                                 errs() << "\nWe have calloc() calls \n" ;
                                 callocCount++ ;
                         }
+                        
                         if(isLoad == true){
                                 errs() << "\nWe have load() calls";
                         }
                         if(isStore == true){
                                 errs() << "\nWe have store() calls ";
                         }
+                        */
                     
                     ///// Value *str1Pointer = call_inst->getArgOperand(0);
                     ////// std::string Str1, Str2;

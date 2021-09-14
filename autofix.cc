@@ -54,8 +54,9 @@ namespace {
                         errs() << "\nSize\n";
                         errs() << size;
                         */
-                        isMalloc &= (!FuncName.compare("malloc"));
-                        if(isMalloc == true){
+                        if (call_inst->getCalledFunction()->getName() == "malloc") {
+                        ///// isMalloc &= (!FuncName.compare("malloc"));
+                        ////// if(isMalloc == true){
                             //// struct Metadata instrMetadata = getLineAndCol(I);
                             std::vector<Value*> args;
                             args.push_back(address);

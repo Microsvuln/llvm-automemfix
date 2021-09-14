@@ -77,15 +77,8 @@ namespace {
                             args.push_back(address);
                             args.push_back(size);
                             Value *freeAddr = call_inst->getArgOperand(0);
-                            ///// args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
-                            ///// errs() << "\nWe have malloc() calls\n";
-                            ///// errs() << *args[0];
-                            ///// errs() << "\n";
-                            ///// errs() << args[1];
                             errs() << "\n";
-                            ////// errs() << "size of allocation : " << *(call_inst->getOperand(0)) <<"\n";
                             errs() << "address of free() : " << freeAddr <<"\n";
-                            ///// errs() << args->size;
                             freeCount++;
                         }
                         /*

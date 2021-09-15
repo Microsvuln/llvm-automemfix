@@ -47,25 +47,15 @@ namespace {
                         if(call_inst->getCallingConv() != llvm::CallingConv::C) continue;
                         std::string FuncName = Callee->getName().str() ;
                         Value* address = cast<Value>(call_inst);
-                        Value* size = call_inst->getOperand(0);
-                        /*
-                        errs() << "\nAddress\n";
-                        errs() << address;
-                        errs() << "\nSize\n";
-                        errs() << size;
-                        */
+                        Value* size = call_inst->getOperand(0);                       
                         if (call_inst->getCalledFunction()->getName() == "malloc") {
                         ///// isMalloc &= (!FuncName.compare("malloc"));
-                        ////// if(isMalloc == true){
-                            //// struct Metadata instrMetadata = getLineAndCol(I);
+                        //// struct Metadata instrMetadata = getLineAndCol(I);
                             std::vector<Value*> args;
                             args.push_back(address);
                             args.push_back(size);
                             ///// args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
                             ///// errs() << "\nWe have malloc() calls\n";
-                            ///// errs() << *args[0];
-                            ///// errs() << "\n";
-                            ///// errs() << args[1];
                             errs() << "\n";
                             errs() << "size of allocation : " << *(call_inst->getOperand(0)) <<"\n";
                             errs() << "address of allocation : " << (address) <<"\n";

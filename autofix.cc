@@ -36,7 +36,7 @@ namespace {
     for (BasicBlock &B: F) {
         for (Instruction &I: B) {
             if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
-                //// bool isMalloc = true;
+                bool isMalloc = true;
                 bool isFree = true;
                 bool isCalloc = true;
                 bool isAlloca = true;

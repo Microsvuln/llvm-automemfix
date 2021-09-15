@@ -71,14 +71,8 @@ namespace {
                             errs() << "address of free() : " << freeAddr <<"\n";
                             freeCount++;
                         }
-                        /*
-                        isFree   &= (!FuncName.compare("free"));
-                        if(isFree == true){
-                            std::vector<Value*> args;
-                            errs() << "address of Free() : "  << (address) <<"\n";
-                            freeCount++;
-                        }
-                        
+
+                        /*  
                         isCalloc &= (!FuncName.compare("calloc"));
                         isAlloca &= (!FuncName.compare("alloca"));
                         isLoad   &= (!FuncName.compare("load"));

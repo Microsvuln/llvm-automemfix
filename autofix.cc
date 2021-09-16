@@ -69,7 +69,7 @@ namespace {
                             Value *freeAddr = call_inst->getArgOperand(0);
                             errs() << "\n";
                             errs() << "address of free() : " << freeAddr <<"\n";
-                            errs() << "address of free() : " << addrs <<"\n";
+                            errs() << "address of free() : " << &addrs <<"\n";
                             freeCount++;
                         }
 

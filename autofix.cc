@@ -36,6 +36,12 @@ namespace {
     for (BasicBlock &B: F) {
         for (Instruction &I: B) {
             if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
+                Function* fn = call_inst->getCalledFunction();
+                StringRef fn_name = fn->getName();
+                errs() << fn_name << " : " << call_inst->getArgOperand(0) << "\n";
+                    for(auto arg = fn->arg_begin(); arg != fn->arg_end();++arg) {
+                        errs() << *arg << "\n";
+                    }
                 bool isMalloc = true;
                 bool isFree = true;
                 bool isCalloc = true;
@@ -43,6 +49,7 @@ namespace {
                 bool isLoad = true;
                 bool isStore = true; 
                 Function *Callee = call_inst->getCalledFunction();
+
                 if(!Callee) continue;
                         if(call_inst->getCallingConv() != llvm::CallingConv::C) continue;
                         std::string FuncName = Callee->getName().str() ;
@@ -65,9 +72,10 @@ namespace {
                             Value* addrs = call_inst->getOperand(0);  
                             
                             for(auto arg = Callee->arg_begin(); arg != Callee->arg_end(); ++arg) {
-                              if(auto* ci = dyn_cast<ConstantInt>(addrs)){
+                              if(auto* ci = dyn_cast<ConstantInt>(arg)){
                                   errs() <<"\nFreeMem" << ci->getValue() << "\n";
                               }                   
+                              errs() << *arg;
                             }             
                             std::vector<Value*> args;
                             args.push_back(address);

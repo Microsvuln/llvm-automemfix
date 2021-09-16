@@ -50,7 +50,6 @@ namespace {
                         Value* size = call_inst->getOperand(0);                       
                         if (call_inst->getCalledFunction()->getName() == "malloc") {
                         ///// isMalloc &= (!FuncName.compare("malloc"));
-                        //// struct Metadata instrMetadata = getLineAndCol(I);
                             std::vector<Value*> args;
                             args.push_back(address);
                             args.push_back(size);
@@ -62,13 +61,15 @@ namespace {
                             ///// errs() << args->size;
                             mallocCount++;
                         }
-                         if (call_inst->getCalledFunction()->getName() == "free") {                    
+                         if (call_inst->getCalledFunction()->getName() == "free") {    
+                            Value* addrs = call_inst->getOperand(0);                                     
                             std::vector<Value*> args;
                             args.push_back(address);
                             args.push_back(size);
                             Value *freeAddr = call_inst->getArgOperand(0);
                             errs() << "\n";
                             errs() << "address of free() : " << freeAddr <<"\n";
+                            errs() << "address of free() : " << addrs <<"\n";
                             freeCount++;
                         }
 

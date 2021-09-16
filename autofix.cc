@@ -62,7 +62,10 @@ namespace {
                             mallocCount++;
                         }
                          if (call_inst->getCalledFunction()->getName() == "free") {    
-                            Value* addrs = call_inst->getOperand(0);                                     
+                            Value* addrs = call_inst->getOperand(0);     
+                            if(auto* ci = dyn_cast<ConstantInt>(addrs)){
+                                  errs() <<"\nFreeMem" << ci->getValue() << "\n";
+                            }                                
                             std::vector<Value*> args;
                             args.push_back(address);
                             args.push_back(size);

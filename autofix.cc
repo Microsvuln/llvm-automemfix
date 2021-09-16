@@ -153,3 +153,26 @@ static RegisterStandardPasses
                  registerSkeletonPass);
 //// How to run !?
 //// opt -load ./build/skeleton/libSkeletonPass.so --skeleton < sm.bc > /dev/null
+/*
+This is my pass !
+malloc : 0x55cabb0910c0
+i64 %0
+address of allocation : 0x55cabb093b50
+malloc : 0x55cabb0910c0
+i64 %0
+address of allocation : 0x55cabb093c80
+malloc : 0x55cabb0910c0
+i64 %0
+address of allocation : 0x55cabb093e20
+printf : 0x55cabb093400
+i8* %0
+free : 0x55cabb096150
+i8* %0
+address of free() : 0x55cabb096150
+free : 0x55cabb0962d0
+i8* %0
+address of free() : 0x55cabb0962d0
+free : 0x55cabb096450
+i8* %0
+address of free() : 0x55cabb096450
+*/

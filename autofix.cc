@@ -56,6 +56,12 @@ namespace {
                         Value* address = cast<Value>(call_inst);
                         Value* size = call_inst->getOperand(0);                       
                         if (call_inst->getCalledFunction()->getName() == "malloc") {
+                            for(auto arg = Callee->arg_begin(); arg != Callee->arg_end(); ++arg) {
+                                if(auto* ci = dyn_cast<ConstantInt>(arg)){
+                                    errs() <<"\nFreeMem" << ci->getValue() << "\n";
+                                }                   
+                                errs() << *arg;
+                            }      
                         ///// isMalloc &= (!FuncName.compare("malloc"));
                             std::vector<Value*> args;
                             args.push_back(address);

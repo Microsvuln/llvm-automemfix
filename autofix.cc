@@ -38,10 +38,12 @@ namespace {
             if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
                 Function* fn = call_inst->getCalledFunction();
                 StringRef fn_name = fn->getName();
+                /*
                 errs() << fn_name << " : " << call_inst->getArgOperand(0) << "\n";
                     for(auto arg = fn->arg_begin(); arg != fn->arg_end();++arg) {
                         errs() << *arg << "\n";
                     }
+                */
                 bool isMalloc = true;
                 bool isFree = true;
                 bool isCalloc = true;

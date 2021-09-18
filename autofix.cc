@@ -38,8 +38,6 @@ namespace {
             if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
                 Function* fn = call_inst->getCalledFunction();   
                 StringRef fn_name = fn->getName();
-                
-                ///// errs() << fn_name << " : " << call_inst->getArgOperand(0) << "\n";                   
                 bool isMalloc = true;
                 bool isFree = true;
                 bool isCalloc = true;
@@ -172,3 +170,4 @@ address of free() : 0x55cabb0962d0
 free : 0x55cabb096450
 i8* %0
 address of free() : 0x55cabb096450
+*/

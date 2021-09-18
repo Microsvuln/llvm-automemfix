@@ -36,7 +36,7 @@ namespace {
     for (BasicBlock &B: F) {
         for (Instruction &I: B) {
             if(CallInst* call_inst = dyn_cast<CallInst>(&I)) {
-                Function* fn = call_inst->getCalledFunction();
+                Function* fn = call_inst->getCalledFunction();   
                 StringRef fn_name = fn->getName();
                 
                 ///// errs() << fn_name << " : " << call_inst->getArgOperand(0) << "\n";                   
@@ -52,23 +52,14 @@ namespace {
                         std::string FuncName = Callee->getName().str() ;
                         Value* address = cast<Value>(call_inst);
                         Value* size = call_inst->getOperand(0);                       
-                        if (call_inst->getCalledFunction()->getName() == "malloc") {                          
-                            for(auto arg = fn->arg_begin(); arg != fn->arg_end(); ++arg) {
-                                if(auto* ci = dyn_cast<ConstantInt>(arg)){
-                                    errs() <<"\nArash\n";
-                                    errs() <<"\n*Mem alloc" << ci->getValue() << "\n";
-                                }                   
-                                errs() << *arg;
-                            }    
-                             
-                        ///// isMalloc &= (!FuncName.compare("malloc"));
+                        if (call_inst->getCalledFunction()->getName() == "malloc") {                            
                             std::vector<Value*> args;
                             args.push_back(address);
                             args.push_back(size);
                             ///// args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
                             ///// errs() << "\nWe have malloc() calls\n";
                             errs() << "\n";
-                            errs() << "size of allocation : " << *(call_inst->getOperand(0)) <<"\n";
+                            ///// errs() << "size of allocation : " << *(call_inst->getOperand(0)) <<"\n";
                             errs() << "address of allocation : " << (address) <<"\n";
                             ///// errs() << args->size;
                             mallocCount++;
@@ -181,4 +172,3 @@ address of free() : 0x55cabb0962d0
 free : 0x55cabb096450
 i8* %0
 address of free() : 0x55cabb096450
-*/

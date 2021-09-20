@@ -29,8 +29,6 @@ namespace {
         
         auto &context = M.getContext();
         auto Int64Ty = Type::getInt64Ty(context);
-
-
     errs() << "\nThis is my pass !\n";
     for (Function &F: M) {
     for (BasicBlock &B: F) {

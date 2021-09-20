@@ -107,18 +107,12 @@ namespace {
                         }
                         */
                     
-                    ///// Value *str1Pointer = call_inst->getArgOperand(0);
-                    ////// std::string Str1, Str2;
-                    ///// StringRef TmpStr;
-                    ///// getConstantStringInfo(str1Pointer, TmpStr);
-                    ////// errs() << call_inst->getArgOperand(0);
-                    ///// errs() << "\n";
             }
         }        
       } 
     }
 
-    /*
+    
      errs() << "Malloc counts : \n";
         errs() << mallocCount;
     errs() << "\nFree Counts :\n";
@@ -126,7 +120,7 @@ namespace {
         if(mallocCount != freeCount){
             errs() << "\n I can say, you have a Use After Free Vulnerability or a Memory leak in parts of your code";
         }
-    */
+    
       return false;
     }
   };

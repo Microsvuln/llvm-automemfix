@@ -105,29 +105,7 @@ namespace {
                             freeCount++;
                         }
 
-                        /*  
-                        isCalloc &= (!FuncName.compare("calloc"));
-                        isAlloca &= (!FuncName.compare("alloca"));
-                        isLoad   &= (!FuncName.compare("load"));
-                        isStore  &= (!FuncName.compare("store"));
-                        */
-                        /*
-                        if(isFree == true){
-                                errs() << "\nWe have free() calls\n";
-                                freeCount++;
-                        }
-                        if(isCalloc == true) {
-                                errs() << "\nWe have calloc() calls \n" ;
-                                callocCount++ ;
-                        }
-                        
-                        if(isLoad == true){
-                                errs() << "\nWe have load() calls";
-                        }
-                        if(isStore == true){
-                                errs() << "\nWe have store() calls ";
-                        }
-                        */
+   
                     
             }
         }        

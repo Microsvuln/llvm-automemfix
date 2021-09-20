@@ -62,6 +62,18 @@ namespace {
                             ///// errs() << args->size;
                             mallocCount++;
                         }
+                        if (call_inst->getCalledFunction()->getName() == "calloc") {                            
+                            std::vector<Value*> args;
+                            args.push_back(address);
+                            args.push_back(size);
+                            ///// args.push_back(ConstantInt::get(Int64Ty, instrMetadata.line, true));
+                            ///// errs() << "\nWe have malloc() calls\n";
+                            errs() << "\n";
+                            ///// errs() << "size of allocation : " << *(call_inst->getOperand(0)) <<"\n";
+                            errs() << "address of allocation : " << (address) <<"\n";
+                            ///// errs() << args->size;
+                            callocCount++;
+                        }
                          if (call_inst->getCalledFunction()->getName() == "free") {    
                             Value* addrs = call_inst->getOperand(0);  
                             /*

@@ -27,11 +27,12 @@ namespace {
 
     virtual bool runOnModule(Module &M) {
         
-        auto &context = M.getContext();
-        auto Int64Ty = Type::getInt64Ty(context);
-        auto Int32PtrTy = Type::getInt32PtrTy(context);
-        auto Int8PytTy = Type::getInt8PtrTy(context);
-        auto VoidTy = Type::getVoidTy(context);
+    auto &context = M.getContext();
+    auto Int64Ty = Type::getInt64Ty(context);
+    auto Int32PtrTy = Type::getInt32PtrTy(context);
+    auto Int8PytTy = Type::getInt8PtrTy(context);
+    auto VoidTy = Type::getVoidTy(context);
+    Constant* init = M.getOrInsertFunction("Initialize", VoidTy, false);
         
     errs() << "\nThis is my pass !\n";
     for (Function &F: M) {

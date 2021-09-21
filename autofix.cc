@@ -29,6 +29,10 @@ namespace {
         
         auto &context = M.getContext();
         auto Int64Ty = Type::getInt64Ty(context);
+        auto Int32PtrTy = Type::getInt32PtrTy(context);
+        auto Int8PytTy = Type::getInt8PtrTy(context);
+        auto VoidTy = Type::getVoidTy(context);
+        
     errs() << "\nThis is my pass !\n";
     for (Function &F: M) {
     for (BasicBlock &B: F) {

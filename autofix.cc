@@ -25,6 +25,16 @@ namespace {
         int64_t col;
     };
 
+    struct Metadata getLineAndCol(Instruction &I){
+      struct Metadata instrMetadata = {-1, -1};
+      const DebugLoc &debugInfo = I.getDebugLoc();
+      if(debugInfo){
+        instrMetadata.line = (int64_t) debugInfo.getLine();
+        instrMetadata.col  = (int64_t) debugInfo.getCol();
+      }
+      return instrMetadata;
+    }
+
     virtual bool runOnModule(Module &M) {
         
     auto &context = M.getContext();

@@ -33,7 +33,15 @@ namespace {
     auto Int8PytTy = Type::getInt8PtrTy(context);
     auto VoidTy = Type::getVoidTy(context);
     Constant* init = M.getOrInsertFunction("Initialize", VoidTy, false);
-        
+    
+    Function* main = M.getFunction("main");
+    BasicBlock* first_bb = &*main->begin();
+    BasicBlock::iterator insertion_pt = first_bb->getFirstInsertionPt();
+
+    IRBuilder<>* builder = new IRBuilder<>(context);
+    builder->setInsertPoint(&*insertion_pt);
+    CallInst* call = builder->CreateCall(init);
+
     errs() << "\nThis is my pass !\n";
     for (Function &F: M) {
     for (BasicBlock &B: F) {

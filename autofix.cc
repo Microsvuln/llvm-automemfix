@@ -43,6 +43,15 @@ namespace {
     auto Int8PytTy = Type::getInt8PtrTy(context);
     auto VoidTy = Type::getVoidTy(context);
     Constant* init = M.getOrInsertFunction("Initialize", VoidTy, false);
+
+    std::vector<Type*> mallocArgs;
+    mallocArgs.push_back(Int8PtrTy);
+    mallocArgs.push_back(Int64Ty);
+    mallocArgs.push_back(Int64Ty);
+    mallocArgs.push_back(Int64Ty);
+    Constant* log_malloc = M.getOrInsertFunction("LogMalloc", FunctionType::get(VoidTy, mallocArgs, false));
+    
+
     
     Function* main = M.getFunction("main");
     BasicBlock* first_bb = &*main->begin();

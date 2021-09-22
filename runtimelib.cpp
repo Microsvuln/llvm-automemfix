@@ -20,3 +20,13 @@ bool comparePairs(struct pair pair_one, struct pair pair_two){
     }
     return false;
 }
+
+void initialize() {
+    allocationIndex = 0;
+    struct pair dummyAllocation = {0, 0};
+    for (int i = 0; i < 1000; i++){
+        allocationMap[i] = dummyAllocation;
+    }
+    report = fopen("report.txt", "w");    
+    
+}

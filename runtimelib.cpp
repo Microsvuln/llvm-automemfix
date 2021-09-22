@@ -4,3 +4,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+FILE *report;
+
+struct pair {
+    int8_t* address;
+    int64_t size;
+};
+
+int         allocationIndex;
+struct pair allocationMap[1000];

@@ -1,4 +1,5 @@
 //// This is the runtime library used to log warnings for memory flaw detection
+//// Describe why we need to add a runtime library to our LLVM implementation for our LLVM Pass to work well
 #include <stdio.h>
 #include <conio.h>
 #include <stdint.h>
@@ -38,3 +39,4 @@ void logAlloca(int32_t* address) {
     allocationMap[allocationIndex] = newAllocation;
     allocationIndex++;
 }
+

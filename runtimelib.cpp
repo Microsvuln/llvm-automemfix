@@ -30,3 +30,11 @@ void initialize() {
     report = fopen("report.txt", "w");    
     
 }
+
+// Log stack allocations to the global map
+void logAlloca(int32_t* address) {
+    int8_t* castAddress = (int8_t *)address;
+    struct pair newAllocation = {castAddress, 0};
+    allocationMap[allocationIndex] = newAllocation;
+    allocationIndex++;
+}

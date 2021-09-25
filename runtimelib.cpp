@@ -93,12 +93,25 @@ void LogQuery(int32_t* address, int64_t size, int64_t line, int64_t col){
         if(flag == 2){
             break;
         }
-    }
+    
 
     if(!comparePairs(allocationMap[i], dummyAllocation)){
         int8_t allocStartAddress = allocationMap[i].address;
         int8_t allocEndAddress   = allocationMap[i].address + allocationMap[i].size;
+        if(allocStartAddress <= endAddress && allocEndAddress >= endAddress){
+            flag += 1;
+            break;
+        }
     }
-    
+}
+if(flag < 2){
+    if(line > -1){
+        printf("Line %ld.%ld: Warning! Attempted to use after free!\n", line, col);
+        fprintf(reprt,"Line %ld.%ld: Warning! Attempted to use after free!\n", line, col);
+    }else{
+        printf("Line ?: Warning! Attempted to use after free!\n");
+        fprintf(report, "Line ?: Warning! Attempted to use after free!\n")
+    }
+}
     
 }

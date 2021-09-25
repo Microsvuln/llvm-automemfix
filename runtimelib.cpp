@@ -46,3 +46,23 @@ void logMalloc(int8_t* address, int64_t size, int64_t line, int64_t col){
     allocationIndex++;
     fprintf(report, "log %ld %ld Malloc %p\n", line, col, address);
 }
+
+void logFree(int8_t* address, int64_t line, int64_t col){
+    struct pair dummyAllocation = {0 ,0};
+    for (int i = 0; i < 1000; ++i){
+        if(!comparePairs(allocationMap[i], dummyAllocation) && allocationMap[i].address == address){
+            allocationMap[i] = dummyAllocation;
+            fprintf(report, "log %ld %ld Free %p\n", line, col, address);
+            return ;
+        }
+    }
+    if(line > -1){
+        printf("Line %ld.%ld: Warning! Attempted double free!\n", line, col);
+        fprintf(report, "Line %ld.%ld: Warning! Attempted Double free!\n", line, col);
+    }else{
+        printf("Line ?: Warning! Attempted Double Free!\n");
+        fprintf(report, "Line ?: Warning! Attempted Double Free!\n");
+    }
+   
+    
+}

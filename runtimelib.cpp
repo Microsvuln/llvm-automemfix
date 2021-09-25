@@ -40,3 +40,9 @@ void logAlloca(int32_t* address) {
     allocationIndex++;
 }
 
+void logMalloc(int8_t* address, int64_t size, int64_t line, int64_t col){
+    struct pair newAllocation = {address, size};
+    allocationMap[allocationIndex] = newAllocation;
+    allocationIndex++;
+    fprintf(report, "log %ld %ld Malloc %p\n", line, col, address);
+}

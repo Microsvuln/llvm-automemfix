@@ -17,6 +17,15 @@ int storeCount = 0;
 namespace {
   struct SkeletonPass : public ModulePass {
     static char ID;
+
+    Value *fp;
+    Value *filename;
+    Value *perms;
+    Value *retval;
+    Value *malloc_str;
+    Value *free_str;
+    Function *F_close, *F_open, *F_printf;
+
     SkeletonPass() : ModulePass(ID) {}
     std::map<std::string, std::tuple<size_t, int> > mem_addrs;
 

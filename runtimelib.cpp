@@ -110,7 +110,7 @@ if(flag < 2){
         fprintf(reprt,"Line %ld.%ld: Warning! Attempted to use after free!\n", line, col);
     }else{
         printf("Line ?: Warning! Attempted to use after free!\n");
-        fprintf(report, "Line ?: Warning! Attempted to use after free!\n")
+        fprintf(report, "Line ?: Warning! Attempted to use after free!\n");
     }
 }
     

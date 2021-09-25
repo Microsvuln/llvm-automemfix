@@ -64,5 +64,41 @@ void logFree(int8_t* address, int64_t line, int64_t col){
         fprintf(report, "Line ?: Warning! Attempted Double Free!\n");
     }
    
+}
+
+void LogQuery(int32_t* address, int64_t size, int64_t line, int64_t col){
+    struct pair dummyAllocation = {0, 0};
+    int8_t* castAddress = (int8_t *) address;
+    int8_t* startAddress = castAddress;
+    int8_t* endAddress = castAddress + size;
+    int flag = 0;
+
+    for (int i = 0; i < 1000; ++i)
+    {
+        if(!comparePairs(allocationMap[i], dummyAllocation)){
+            int8_t* allocStartAddress = allocationMap[i].address;
+            int8_t* allocEndAddress = allocationMap[i].address + allocationMap[i].size;
+        }
+        if(allocationMap[i].size == 0 && allocStartAddress == startAddress){
+            flag = 2;
+            break;
+        }
+        if(allocStartAddress <= startAddress && allocEndAddress >= startAddress){
+            flag+= 1;
+            break;
+        }
+    }
+    for (int i = 0; i < 1000; ++i)
+    {
+        if(flag == 2){
+            break;
+        }
+    }
+
+    if(!comparePairs(allocationMap[i], dummyAllocation)){
+        int8_t allocStartAddress = allocationMap[i].address;
+        int8_t allocEndAddress   = allocationMap[i].address + allocationMap[i].size;
+    }
+    
     
 }

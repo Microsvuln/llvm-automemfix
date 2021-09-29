@@ -153,13 +153,13 @@ namespace {
     }
 
     
-     errs() << "Malloc counts : \n";
-        errs() << mallocCount;
+    errs() << "Malloc counts : \n";
+    errs() << mallocCount;
     errs() << "\nFree Counts :\n";
-        errs() << freeCount;    
-        if(mallocCount != freeCount){
-            errs() << "\n I can say, you have a Use After Free Vulnerability or a Memory leak in parts of your code";
-        }
+    errs() << freeCount;    
+    if(mallocCount != freeCount){
+          errs() << "\n I can say, you have a Use After Free Vulnerability or a Memory leak in parts of your code";
+    }
     
       return false;
     }

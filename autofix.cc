@@ -143,10 +143,7 @@ namespace {
                             errs() << "address of free() : " << addrs <<"\n";
                             
                             freeCount++;
-                        }
-
-   
-                    
+                        }                       
             }
         }        
       } 

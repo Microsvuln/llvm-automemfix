@@ -159,8 +159,7 @@ namespace {
     errs() << freeCount;    
     if(mallocCount != freeCount){
         errs() << "\n I can say, you have a Use After Free Vulnerability or a Memory leak in parts of your code";
-    }
-    
+    }    
       return false;
     }
   };

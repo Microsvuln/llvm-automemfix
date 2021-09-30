@@ -148,8 +148,6 @@ namespace {
         }        
       } 
     }
-
-    
     errs() << "Malloc counts : \n";
     errs() << mallocCount;
     errs() << "\nFree Counts :\n";
